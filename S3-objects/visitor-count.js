@@ -1,0 +1,39 @@
+if (!localStorage.getItem('visited')) {
+    fetch('https://7pm15e6gfa.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
+      method: 'GET',
+      headers: {
+        'Origin': 'https://judekaney.com',
+        'Visited': 'unviewed'
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      const count = data.total;
+      document.getElementById("count").textContent = count;
+      localStorage.setItem('visited', true);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  } else {
+    fetch('https://7pm15e6gfa.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
+      method: 'GET',
+      headers: {
+        'Origin': 'https://judekaney.com',
+        'Visited': 'viewed'
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      const count = data.total;
+      document.getElementById("count").textContent = count;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+  
