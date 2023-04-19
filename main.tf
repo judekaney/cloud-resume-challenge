@@ -159,7 +159,7 @@ resource "aws_api_gateway_stage" "prod" {
 resource "aws_lambda_function" "lambda" {
   function_name = "update-return-visitor-count"
   role          = "arn:aws:iam::339828646418:role/update-return-visitor-count-role"
-  filename      = "lambda/lambda.py"
+  filename      = "lambda.zip"
   runtime       = "python3.9"
   handler       = "lambda_function.lambda_handler"
   environment {
@@ -181,6 +181,16 @@ data "github_repository_file" "visitorcount" {
   repository = "resume-gitactions"
   file       = "S3-objects/visitor-count.js"
 }
+
+data "github_repository_file" "lambdafile" {
+  repository = "resume-gitactions"
+  file = "lambda/lambda.py"
+}
+
+data "archive_file" "lambda" {
+  type = "zip"
+  source_file = data.github_repository_file.lambdafile.content
+  output_path = "lambda.zip"
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
   bucket = "judekaney.com"
