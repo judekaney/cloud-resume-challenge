@@ -47,7 +47,7 @@ resource "aws_s3_object" "indexhtml" {
 resource "aws_s3_object" "visitor-countjs" {
   bucket = aws_s3_bucket_website_configuration.judekaney_host_bucket.id
   key    = "visitor-count.js"
-  source = "S3/visitor-count.js"
+  content = data.github_repository_file.visitorcount.content
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -175,6 +175,11 @@ resource "aws_lambda_function" "lambda" {
 data "github_repository_file" "index" {
   repository = "resume-gitactions"
   file       = "S3-objects/index.html"
+}
+
+data "github_repository_file" "visitorcount" {
+  repository = "resume-gitactions"
+  file       = "S3-objects/visitor-count.js"
 }
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
