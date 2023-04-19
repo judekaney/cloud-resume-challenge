@@ -190,7 +190,7 @@ data "github_repository_file" "lambdafile" {
 data "archive_file" "lambda" {
   depends_on = [data.github_repository_file.lambdafile]
   type = "zip"
-  source_file = data.github_repository_file.lambdafile.content
+  source_file = data.github_repository_file.lambdafile
   output_path = "lambda.zip"
 }
 
