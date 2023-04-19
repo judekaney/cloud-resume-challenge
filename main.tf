@@ -191,6 +191,7 @@ data "archive_file" "lambda" {
   type = "zip"
   source_file = data.github_repository_file.lambdafile.content
   output_path = "lambda.zip"
+}
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
   bucket = "judekaney.com"
