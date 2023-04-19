@@ -22,7 +22,8 @@ provider "aws" {
   
 provider "github" {
   token = var.GIT_TOKEN
-
+}
+  
 resource "aws_s3_bucket_website_configuration" "judekaney_host_bucket" {
   bucket = "judekaney.com"
 
