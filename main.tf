@@ -3,6 +3,9 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = " 4.62.0"
+    github = {
+      source = "integrations/github"
+      version = "5.12.0"
     }
   }
   backend "remote" {
@@ -16,6 +19,9 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
+  
+provider "github" {
+  token = var.GIT_TOKEN
 
 resource "aws_s3_bucket_website_configuration" "judekaney_host_bucket" {
   bucket = "judekaney.com"
@@ -28,7 +34,7 @@ resource "aws_s3_bucket_website_configuration" "judekaney_host_bucket" {
 resource "aws_s3_object" "indexhtml" {
   bucket       = aws_s3_bucket_website_configuration.judekaney_host_bucket.id
   key          = "index.html"
-  source       = "S3/index.html"
+  content      = "${data.github_repository_file.index.content}"
   content_type = "text/html"
 }
 
@@ -158,6 +164,11 @@ resource "aws_lambda_function" "lambda" {
       "WEBSITE_NAME"  = "judekaney.com"
     }
   }
+}
+
+data "github_repository_file" "index" {
+  repository = "resume-gitactions"
+  file = "S3-objects/index.html"
 }
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
