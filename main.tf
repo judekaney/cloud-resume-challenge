@@ -5,7 +5,7 @@ terraform {
       version = " 4.62.0"
     }
     github = {
-      source = "integrations/github"
+      source  = "integrations/github"
       version = "5.12.0"
     }
   }
@@ -20,11 +20,11 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
-  
+
 provider "github" {
   token = var.GIT_TOKEN
 }
-  
+
 resource "aws_s3_bucket_website_configuration" "judekaney_host_bucket" {
   bucket = "judekaney.com"
 
@@ -36,7 +36,7 @@ resource "aws_s3_bucket_website_configuration" "judekaney_host_bucket" {
 resource "aws_s3_object" "indexhtml" {
   bucket       = aws_s3_bucket_website_configuration.judekaney_host_bucket.id
   key          = "index.html"
-  content      = "${data.github_repository_file.index.content}"
+  content      = data.github_repository_file.index.content
   content_type = "text/html"
 }
 
@@ -170,7 +170,7 @@ resource "aws_lambda_function" "lambda" {
 
 data "github_repository_file" "index" {
   repository = "resume-gitactions"
-  file = "S3-objects/index.html"
+  file       = "S3-objects/index.html"
 }
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
@@ -185,4 +185,3 @@ data "aws_api_gateway_resource" "visitorget" {
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   path        = "/visitorget"
 }
-
