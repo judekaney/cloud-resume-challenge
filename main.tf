@@ -188,6 +188,7 @@ data "github_repository_file" "lambdafile" {
 }
 
 data "archive_file" "lambda" {
+  depends_on = [null_resource.zip]
   type = "zip"
   source_file = data.github_repository_file.lambdafile.content
   output_path = "lambda.zip"
