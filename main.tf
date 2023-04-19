@@ -17,6 +17,10 @@ terraform {
   }
 }
 
+variable "GIT_TOKEN" {
+  type = string
+}
+
 provider "aws" {
   region = "us-east-1"
 }
