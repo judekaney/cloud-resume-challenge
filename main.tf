@@ -200,6 +200,7 @@ data "aws_s3_bucket" "judekaney_host_bucket" {
 }
 
 data "aws_api_gateway_rest_api" "judekaneycomAPI" {
+  depends_on = [aws_api_gateway_rest_api.judekaneycomAPI]
   name = "judekaney.comAPI"
 }
 
