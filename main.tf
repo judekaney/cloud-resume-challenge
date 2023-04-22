@@ -163,19 +163,6 @@ resource "aws_api_gateway_integration_response" "response" {
   resource_id             = data.aws_api_gateway_resource.visitorget.id
   http_method             = aws_api_gateway_method.method.http_method
   status_code = "200"
-  
-  content_handling        = "CONVERT_TO_TEXT"
-  request_templates = {
-    "application/json" = <<-EOT
-                {
-                  "method": "$context.httpMethod",
-                  "body" : $input.json('$'),
-                  "headers": {
-                    "Visited": "$input.params().header.get('visited')"
-                  }
-                }
-            EOT
-  }
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
