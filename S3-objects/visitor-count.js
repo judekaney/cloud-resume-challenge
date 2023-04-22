@@ -1,5 +1,5 @@
 if (!localStorage.getItem('visited')) {
-    fetch('https://7pm15e6gfa.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
+    fetch('https://uv0lnpu95j.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
       method: 'GET',
       headers: {
         'Origin': 'https://judekaney.com',
@@ -18,7 +18,7 @@ if (!localStorage.getItem('visited')) {
       console.error(error);
     });
   } else {
-    fetch('https://7pm15e6gfa.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
+    fetch('https://uv0lnpu95j.execute-api.us-east-1.amazonaws.com/prod/visitorget', {
       method: 'GET',
       headers: {
         'Origin': 'https://judekaney.com',
