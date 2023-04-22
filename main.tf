@@ -94,15 +94,22 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 }
-resource "aws_route53_hosted_zone_dnssec" "judekaneycom" {
-  hosted_zone_id = "Z0430325TQEXQ3ACFAQM"
-  signing_status = "NOT_SIGNING"
-}
 
 resource "aws_dynamodb_table" "visitor-count" {
   name           = "visitor-count"
   read_capacity  = 1
   write_capacity = 1
+  hash_key = "website"
+  
+  attribute {
+    name = "website"
+    type = "S"
+  }
+  
+  attribute {
+    name = "visitors"
+    type = "N"
+  }
 }
 
 resource "aws_api_gateway_rest_api" "judekaneycomAPI" {
@@ -111,8 +118,8 @@ resource "aws_api_gateway_rest_api" "judekaneycomAPI" {
 }
 
 resource "aws_api_gateway_resource" "visitorget" {
-  rest_api_id = "7pm15e6gfa"
-  parent_id   = "nje1t8lb98"
+  rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
+  parent_id   = data.aws_api_gateway_rest_api.judekaneycomAPI.root_resource_id
   path_part   = "visitorget"
 }
 
