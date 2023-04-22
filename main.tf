@@ -148,7 +148,34 @@ resource "aws_api_gateway_integration" "integration" {
                 }
             EOT
   }
-  uri = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:339828646418:function:update-return-visitor-count/invocations"
+  uri = aws_lambda_function.lambda.invoke_arn
+}
+
+resource "aws_api_gateway_method_response" "methodresponse" {
+  rest_api_id             = data.aws_api_gateway_rest_api.judekaneycomAPI.id
+  resource_id             = data.aws_api_gateway_resource.visitorget.id
+  http_method             = aws_api_gateway_method.method.http_method
+  status_code = "200"
+}
+
+resource "aws_api_gateway_integration_response" "response" {
+  rest_api_id             = data.aws_api_gateway_rest_api.judekaneycomAPI.id
+  resource_id             = data.aws_api_gateway_resource.visitorget.id
+  http_method             = aws_api_gateway_method.method.http_method
+  status_code = "200"
+  
+  content_handling        = "CONVERT_TO_TEXT"
+  request_templates = {
+    "application/json" = <<-EOT
+                {
+                  "method": "$context.httpMethod",
+                  "body" : $input.json('$'),
+                  "headers": {
+                    "Visited": "$input.params().header.get('visited')"
+                  }
+                }
+            EOT
+  }
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
