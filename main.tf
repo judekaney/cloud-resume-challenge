@@ -152,6 +152,7 @@ resource "aws_api_gateway_integration" "integration" {
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
 }
 
@@ -212,6 +213,7 @@ data "aws_api_gateway_rest_api" "judekaneycomAPI" {
 }
 
 data "aws_api_gateway_resource" "visitorget" {
+  depends_on = [aws_api_gateway_resource.visitorget]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   path        = "/visitorget"
 }
