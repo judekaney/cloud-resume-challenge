@@ -183,7 +183,7 @@ resource "aws_lambda_function" "lambda" {
   role          = "arn:aws:iam::339828646418:role/update-return-visitor-count-role"
   filename      = "lambda.zip"
   runtime       = "python3.9"
-  handler       = "lambda_function.lambda_handler"
+  handler       = "lambda.lambda_handler"
   environment {
     variables = {
       "PARTITION_KEY" = "website"
