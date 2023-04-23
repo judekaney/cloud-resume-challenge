@@ -202,7 +202,7 @@ resource "aws_lambda_permission" "allow_api" {
   action = "lambda:InvokeFunction"
   function_name = aws_lambda_function.lambda.function_name
   principal = "apigateway.amazonaws.com"
-  source_arn = aws_api_gateway_method.method.method_arn
+  source_arn = "${aws_api_gateway_rest_api.judekaneycomAPI.execution_arn}/*"
 }
 
 data "github_repository_file" "index" {
