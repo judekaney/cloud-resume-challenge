@@ -156,6 +156,9 @@ resource "aws_api_gateway_method_response" "methodresponse" {
   resource_id             = data.aws_api_gateway_resource.visitorget.id
   http_method             = aws_api_gateway_method.method.http_method
   status_code = "200"
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = false
+  }
 }
 
 resource "aws_api_gateway_integration_response" "response" {
