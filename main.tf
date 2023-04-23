@@ -158,6 +158,7 @@ resource "aws_api_gateway_method_response" "methodresponse" {
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = true
+  }
 }
 
 resource "aws_api_gateway_integration_response" "response" {
@@ -194,6 +195,14 @@ resource "aws_lambda_function" "lambda" {
       "WEBSITE_NAME"  = "judekaney.com"
     }
   }
+}
+  
+resource "aws_lambda_permission" "allow_api" {
+  statement_id = "AllowInvokeFromAPIGateway"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda.function_name
+  principal = "apigateway.amazonaws.com"
+  source_arn = aws_api_gateway_method.method.arn
 }
 
 data "github_repository_file" "index" {
