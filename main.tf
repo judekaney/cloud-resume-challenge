@@ -95,9 +95,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 }
 
-resource "aws_route53_hosted_zone_dnssec" "judekaneycom" {
-  hosted_zone_id = "Z0430325TQEXQ3ACFAQM"
-  signing_status = "NOT_SIGNING"
+resource "aws_route53_zone" "judekaneycom" {
+  name = "judekaney.com"
 }
 
 resource "aws_dynamodb_table" "visitor-count" {
