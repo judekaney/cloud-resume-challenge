@@ -197,6 +197,7 @@ resource "aws_lambda_function" "lambda" {
       "WEBSITE_NAME"  = "judekaney.com"
     }
   }
+  source_code_hash = data.archive_file.lambda.output_base64sha256
 }
   
 resource "aws_lambda_permission" "allow_api" {
