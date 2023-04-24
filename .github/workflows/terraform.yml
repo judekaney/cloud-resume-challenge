@@ -82,6 +82,8 @@ jobs:
     - name: Terraform Format
       run: terraform fmt
 
+    - name: Terraform state list
+      run: terraform state list 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
