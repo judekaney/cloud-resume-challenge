@@ -82,8 +82,6 @@ jobs:
     - name: Terraform Format
       run: terraform fmt
 
-    - name: Terraform state rm
-      run: terraform state rm 'aws_route53_hosted_zone_dnssec.judekaneycom'
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
