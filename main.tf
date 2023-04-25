@@ -166,7 +166,7 @@ resource "aws_api_gateway_integration_response" "response" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'",
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Visited'",
-    "method.response.header.Access-Control-Allow-Methods" = "'GET', 'POST'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET', 'POST', 'OPTIONS'"
   }
 }
 
