@@ -9,6 +9,7 @@ partition_key = os.environ['PARTITION_KEY']
 website_name = os.environ['WEBSITE_NAME']
 view_count = os.environ['VIEW_COUNT']
 
+
 def lambda_handler(event, context, table=table, partition_key=partition_key, website_name=website_name, view_count=view_count, table_name=table_name):
     headers = event['headers']
 
