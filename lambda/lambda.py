@@ -1,7 +1,6 @@
 import boto3
 import os
 
-test_lambda = "testing_v1"
 dynamodb = boto3.resource('dynamodb')
 table_name = os.environ['TABLE_NAME']
 table = dynamodb.Table(table_name)
