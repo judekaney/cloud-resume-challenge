@@ -150,24 +150,12 @@ resource "aws_api_gateway_method_response" "methodresponse" {
   rest_api_id             = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   resource_id             = data.aws_api_gateway_resource.visitorget.id
   http_method             = aws_api_gateway_method.method.http_method
-  status_code = "200"
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true,
-    "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Access-Control-Allow-Methods" = true
-  }
 }
 
 resource "aws_api_gateway_integration_response" "response" {
   rest_api_id             = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   resource_id             = data.aws_api_gateway_resource.visitorget.id
   http_method             = aws_api_gateway_method.method.http_method
-  status_code = "200"
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'",
-    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,Visited'",
-    "method.response.header.Access-Control-Allow-Methods" = "'GET', 'POST', 'OPTIONS'"
-  }
 }
 
 module "cors" {
@@ -190,6 +178,14 @@ module "cors" {
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
+  
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.judekaneycomAPI.body))
+  }
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_api_gateway_stage" "prod" {
