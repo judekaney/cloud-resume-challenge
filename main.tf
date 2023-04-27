@@ -176,6 +176,15 @@ module "cors" {
 
   api_id          = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   api_resource_id = data.aws_api_gateway_resource.visitorget.id
+  allow_headers   = [
+  "Authorization",
+  "Content-Type",
+  "X-Amz-Date",
+  "X-Amz-Security-Token",
+  "X-Api-Key",
+  "Visited"
+]
+  
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
