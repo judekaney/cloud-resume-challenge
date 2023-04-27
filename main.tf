@@ -170,6 +170,14 @@ resource "aws_api_gateway_integration_response" "response" {
   }
 }
 
+module "cors" {
+  source = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = data.aws_api_gateway_rest_api.judekaneycomAPI.id
+  api_resource_id = data.aws_api_gateway_resource.visitorget.id
+}
+
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
