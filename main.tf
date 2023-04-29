@@ -186,7 +186,7 @@ module "cors" {
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
-  
+  stage_description = "${timestamp()}"
   triggers = {
     redeployment = sha1(jsonencode(aws_api_gateway_rest_api.judekaneycomAPI.body))
   }
