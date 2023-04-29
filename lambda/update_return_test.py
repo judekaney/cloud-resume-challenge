@@ -3,13 +3,13 @@ from update_return import lambda_handler
 from moto import mock_dynamodb
 import os
 
-os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
 
 
 @mock_dynamodb
 class TestLambda:
 
     def setup_method(self, method):
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         self.table_name = 'visitor_test'
         self.partition_key = 'website'
         self.view_count = 'visitors'
