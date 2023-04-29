@@ -1,5 +1,5 @@
 import boto3
-from lambda_function import lambda_handler
+from update_return import lambda_handler
 from moto import mock_dynamodb
 
 
