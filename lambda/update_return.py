@@ -12,7 +12,7 @@ view_count = os.environ['VIEW_COUNT']
 
 def lambda_handler(event, context, table=table, partition_key=partition_key, website_name=website_name, view_count=view_count, table_name=table_name):
     headers = event['headers']
-
+    os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
     # Verify that "Visited" header is present
     if 'Visited' not in headers:
         return {
