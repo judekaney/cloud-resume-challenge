@@ -34,6 +34,7 @@ class TestLambda:
 
     def test_unviewed(self):
         from lambda_function import lambda_handler
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         unviewed_test_event = {
             'headers': {
                 'Visited': 'unviewed'
@@ -47,6 +48,7 @@ class TestLambda:
         self.table.delete()
 
     def test_viewed(self):
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         viewed_test_event = {
             'headers': {
                 'Visited': 'viewed'
@@ -60,6 +62,7 @@ class TestLambda:
         self.table.delete()
 
     def test_no_visited_header(self):
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         test_event = {
             'headers': {
             }
@@ -71,6 +74,7 @@ class TestLambda:
         self.table.delete()
 
     def test_invalid_header(self):
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         test_event = {
             'headers': {
                 'Visited': 'bad'
