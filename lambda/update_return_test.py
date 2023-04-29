@@ -2,6 +2,8 @@ import boto3
 from update_return import lambda_handler
 from moto import mock_dynamodb
 
+export AWS_DEFAULT_REGION=us-east-1
+
 
 @mock_dynamodb
 class TestLambda:
