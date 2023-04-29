@@ -1,15 +1,12 @@
 import boto3
 from update_return import lambda_handler
 from moto import mock_dynamodb
-import os
-
 
 
 @mock_dynamodb
 class TestLambda:
 
     def setup_method(self, method):
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         self.table_name = 'visitor_test'
         self.partition_key = 'website'
         self.view_count = 'visitors'
@@ -34,7 +31,6 @@ class TestLambda:
 
     def test_unviewed(self):
         from lambda_function import lambda_handler
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         unviewed_test_event = {
             'headers': {
                 'Visited': 'unviewed'
@@ -48,7 +44,6 @@ class TestLambda:
         self.table.delete()
 
     def test_viewed(self):
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         viewed_test_event = {
             'headers': {
                 'Visited': 'viewed'
@@ -62,7 +57,6 @@ class TestLambda:
         self.table.delete()
 
     def test_no_visited_header(self):
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         test_event = {
             'headers': {
             }
@@ -74,7 +68,6 @@ class TestLambda:
         self.table.delete()
 
     def test_invalid_header(self):
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         test_event = {
             'headers': {
                 'Visited': 'bad'
