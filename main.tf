@@ -187,13 +187,6 @@ resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
   stage_description = "${timestamp()}"
-  triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.judekaneycomAPI.body))
-  }
-  
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_api_gateway_stage" "prod" {
@@ -207,9 +200,9 @@ resource "aws_api_gateway_stage" "prod" {
 resource "aws_lambda_function" "lambda" {
   function_name = "update-return-visitor-count"
   role          = "arn:aws:iam::339828646418:role/update-return-visitor-count-role"
-  filename      = "lambda.zip"
+  filename      = "update-return.zip"
   runtime       = "python3.9"
-  handler       = "lambda.lambda_handler"
+  handler       = "update-return.lambda_handler"
   environment {
     variables = {
       "PARTITION_KEY" = "website"
@@ -241,15 +234,15 @@ data "github_repository_file" "visitorcount" {
 
 data "github_repository_file" "lambdafile" {
   repository = "resume-gitactions"
-  file = "lambda/lambda.py"
+  file = "lambda/update-return.py"
 }
 
 data "archive_file" "lambda" {
   depends_on = [data.github_repository_file.lambdafile]
   type = "zip"
   source_content = data.github_repository_file.lambdafile.content
-  source_content_filename = "lambda.py"
-  output_path = "lambda.zip"
+  source_content_filename = "update-return.py"
+  output_path = "update-return.zip"
 }
 
 data "aws_s3_bucket" "judekaney_host_bucket" {
