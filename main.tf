@@ -186,7 +186,11 @@ module "cors" {
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [aws_api_gateway_integration.integration]
   rest_api_id = data.aws_api_gateway_rest_api.judekaneycomAPI.id
-  stage_description = "${timestamp()}"
+  stage_description = "Deployed at ${timestamp()}"
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_api_gateway_stage" "prod" {
