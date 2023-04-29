@@ -1,8 +1,7 @@
 import boto3
 import os
 
-
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table_name = os.environ['TABLE_NAME']
 table = dynamodb.Table(table_name)
 partition_key = os.environ['PARTITION_KEY']
@@ -12,7 +11,6 @@ view_count = os.environ['VIEW_COUNT']
 
 def lambda_handler(event, context, table=table, partition_key=partition_key, website_name=website_name, view_count=view_count, table_name=table_name):
     headers = event['headers']
-    os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
     # Verify that "Visited" header is present
     if 'Visited' not in headers:
         return {
