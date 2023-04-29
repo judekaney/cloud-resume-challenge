@@ -12,7 +12,7 @@ class TestLambda:
         self.view_count = 'visitors'
         self.website_name = 'judekaney.com'
 
-        dynamodb = boto3.resource('dynamodb', 'us-east-1')
+        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         self.table = dynamodb.create_table(
             TableName=self.table_name,
             KeySchema=[{'AttributeName': self.partition_key, 'KeyType': 'HASH'}],
