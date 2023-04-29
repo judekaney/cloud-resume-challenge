@@ -1,6 +1,7 @@
 import boto3
 from update_return import lambda_handler
 from moto import mock_dynamodb
+import os
 
 os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
 
