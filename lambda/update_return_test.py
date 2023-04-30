@@ -30,7 +30,7 @@ class TestLambda:
         )
 
     def test_unviewed(self):
-        from lambda_function import lambda_handler
+#        from update_return import lambda_handler
         unviewed_test_event = {
             'headers': {
                 'Visited': 'unviewed'
