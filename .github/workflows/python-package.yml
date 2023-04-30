@@ -34,9 +34,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       env:
-        TABLE_VAR: ${{ vars.TABLE_NAME }}
-        PARITION_VAR: ${{ vars.PARTITION_KEY }}
-        WEBSITE_VAR: ${{ vars.WEBSITE_NAME }}
-        VIEW_VAR: ${{ vars.VIEW_COUNT }}
+        TABLE_NAME: visitor-count
+        PARTITION_KEY: website
+        VIEW_COUNT: visitors
+        WEBSITE_NAME: judekaney.com
       run: |
         pytest lambda/update_return_test.py
