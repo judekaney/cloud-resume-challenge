@@ -2,9 +2,11 @@ name: Python package
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - 'lambda/**'
   pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'lambda/**'
 
 jobs:
   build:
