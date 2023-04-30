@@ -13,7 +13,7 @@ def lambda_handler(event, context, table=table, partition_key=partition_key, web
     headers = event['headers']
     # Verify that "Visited" header is present
     if 'Visited' not in headers:
-        return {
+        #return {
             'statusCode': 400,
             'body': 'Bad Request: "Visited" header is missing'
         }
