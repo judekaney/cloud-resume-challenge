@@ -1,2 +1,2 @@
 # resume-gitactions
-HTML, JavaScript, Python, and terraform for an AWS S3 static website. 
+HTML, JavaScript, Python, and Terraform for an AWS S3 static website. 
