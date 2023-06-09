@@ -61,4 +61,5 @@ ul, #menu li {
   .divider{
     flex-grow:1;
     height: 1px;
+    background-color: #000000;
   }
